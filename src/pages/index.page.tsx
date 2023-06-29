@@ -22,7 +22,10 @@ const Home = () => {
     await fetchBoard();
   };
   useEffect(() => {
-    fetchBoard();
+    const cancelId = setInterval(fetchBoard, 500);
+    return () => {
+      clearInterval(cancelId);
+    };
   }, []);
   if (!board || !user) return <Loading visible />;
 
